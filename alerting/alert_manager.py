@@ -106,7 +106,7 @@ class AlertManager:
         
         logger.warning(f"ALERT FIRED: {rule_name} - {rule['message']} (value: {current_value})")
         
-        print(f"\n🚨 ALERT: {rule['severity'].upper()}")
+        print(f"\n[EMOJI] ALERT: {rule['severity'].upper()}")
         print(f"   Rule: {rule_name}")
         print(f"   Message: {rule['message']}")
         print(f"   Current: {current_value}, Threshold: {rule['threshold']}")

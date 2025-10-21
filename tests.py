@@ -53,14 +53,14 @@ class ObservabilityPlatformTestCase(unittest.TestCase):
         
         self.assertIn('cpu_usage_percent', system_metrics)
         self.assertIn('memory_usage_percent', system_metrics)
-        print(f"   ✅ System metrics collected")
+        print(f"   [EMOJI] System metrics collected")
         
         # Collect custom metric
         collector.collect_metric('test_metric', 42)
         
         value = collector.get_latest_value('test_metric')
         self.assertEqual(value, 42)
-        print(f"   ✅ Custom metric: test_metric = {value}")
+        print(f"   [EMOJI] Custom metric: test_metric = {value}")
     
     # Test 2: Metrics Aggregation
     def test_02_metrics_aggregation(self):
@@ -78,15 +78,15 @@ class ObservabilityPlatformTestCase(unittest.TestCase):
         # Test aggregations
         total = aggregator.aggregate_sum(metrics)
         self.assertEqual(total, 60)
-        print(f"   ✅ Sum: {total}")
+        print(f"   [EMOJI] Sum: {total}")
         
         avg = aggregator.aggregate_avg(metrics)
         self.assertEqual(avg, 20)
-        print(f"   ✅ Avg: {avg}")
+        print(f"   [EMOJI] Avg: {avg}")
         
         min_val = aggregator.aggregate_min(metrics)
         self.assertEqual(min_val, 10)
-        print(f"   ✅ Min: {min_val}")
+        print(f"   [EMOJI] Min: {min_val}")
     
     # Test 3: Alert Rules
     def test_03_alert_rules(self):
@@ -104,16 +104,16 @@ class ObservabilityPlatformTestCase(unittest.TestCase):
             severity='warning'
         )
         
-        print("   ✅ Alert rule added")
+        print("   [EMOJI] Alert rule added")
         
         # Test evaluation
         should_fire = alert_manager.evaluate_rule('test_alert', 85)
         self.assertTrue(should_fire)
-        print(f"   ✅ Rule evaluation: {should_fire} (85 > 80)")
+        print(f"   [EMOJI] Rule evaluation: {should_fire} (85 > 80)")
         
         should_not_fire = alert_manager.evaluate_rule('test_alert', 75)
         self.assertFalse(should_not_fire)
-        print(f"   ✅ Rule evaluation: {should_not_fire} (75 < 80)")
+        print(f"   [EMOJI] Rule evaluation: {should_not_fire} (75 < 80)")
     
     # Test 4: Alert Firing
     def test_04_alert_firing(self):
@@ -133,12 +133,12 @@ class ObservabilityPlatformTestCase(unittest.TestCase):
         fired = alert_manager.evaluate_all_rules(collector)
         
         self.assertIn('test', fired)
-        print(f"   ✅ Alert fired: {fired}")
+        print(f"   [EMOJI] Alert fired: {fired}")
         
         # Check active alerts
         active = alert_manager.get_active_alerts()
         self.assertEqual(len(active), 1)
-        print(f"   ✅ Active alerts: {len(active)}")
+        print(f"   [EMOJI] Active alerts: {len(active)}")
     
     # Test 5: Log Aggregation
     def test_05_log_aggregation(self):
@@ -152,17 +152,17 @@ class ObservabilityPlatformTestCase(unittest.TestCase):
         log_agg.log('ERROR', 'Test error message')
         log_agg.log('WARNING', 'Test warning message')
         
-        print("   ✅ 3 log entries recorded")
+        print("   [EMOJI] 3 log entries recorded")
         
         # Get logs
         all_logs = log_agg.get_logs(hours=24)
         self.assertGreaterEqual(len(all_logs), 3)
-        print(f"   ✅ Retrieved {len(all_logs)} logs")
+        print(f"   [EMOJI] Retrieved {len(all_logs)} logs")
         
         # Get error logs
         errors = log_agg.get_logs(level='ERROR', hours=24)
         self.assertGreaterEqual(len(errors), 1)
-        print(f"   ✅ Error logs: {len(errors)}")
+        print(f"   [EMOJI] Error logs: {len(errors)}")
     
     # Test 6: Log Querying
     def test_06_log_querying(self):
@@ -175,7 +175,7 @@ class ObservabilityPlatformTestCase(unittest.TestCase):
         counts = log_agg.get_log_count_by_level(hours=24)
         
         self.assertIsInstance(counts, dict)
-        print(f"   ✅ Log counts: {counts}")
+        print(f"   [EMOJI] Log counts: {counts}")
     
     # Test 7: SLA Monitoring
     def test_07_sla_monitoring(self):
@@ -191,14 +191,14 @@ class ObservabilityPlatformTestCase(unittest.TestCase):
         sla_monitor.record_sla_metric('test_sla', 99.5)
         sla_monitor.record_sla_metric('test_sla', 99.8)
         
-        print("   ✅ SLA metrics recorded")
+        print("   [EMOJI] SLA metrics recorded")
         
         # Get status
         status = sla_monitor.get_sla_status('test_sla')
         
         self.assertIsNotNone(status)
         self.assertTrue(status['compliant'])
-        print(f"   ✅ SLA compliant: {status['compliant']}")
+        print(f"   [EMOJI] SLA compliant: {status['compliant']}")
     
     # Test 8: Incident Detection
     def test_08_incident_detection(self):
@@ -214,13 +214,13 @@ class ObservabilityPlatformTestCase(unittest.TestCase):
             'Test incident'
         )
         
-        print("   ✅ Detection rule added")
+        print("   [EMOJI] Detection rule added")
         
         # Detect with alerts
         incidents = detector.detect_incidents({}, [{'alert': 'test'}], [])
         
         self.assertEqual(len(incidents), 1)
-        print(f"   ✅ Incidents detected: {len(incidents)}")
+        print(f"   [EMOJI] Incidents detected: {len(incidents)}")
     
     # Test 9: Incident Response
     def test_09_incident_response(self):
@@ -236,12 +236,12 @@ class ObservabilityPlatformTestCase(unittest.TestCase):
         actions = responder.respond('test_incident', context={'test': 'data'})
         
         self.assertEqual(len(actions), 2)
-        print(f"   ✅ Actions executed: {len(actions)}")
+        print(f"   [EMOJI] Actions executed: {len(actions)}")
         
         # Check history
         history = responder.get_response_history()
         self.assertGreaterEqual(len(history), 1)
-        print(f"   ✅ Response history: {len(history)} entries")
+        print(f"   [EMOJI] Response history: {len(history)} entries")
     
     # Test 10: Aggregators
     def test_10_aggregators(self):
@@ -254,7 +254,7 @@ class ObservabilityPlatformTestCase(unittest.TestCase):
         count_agg.update({'value': 2})
         
         self.assertEqual(count_agg.get_result(), 2)
-        print(f"   ✅ Count: {count_agg.get_result()}")
+        print(f"   [EMOJI] Count: {count_agg.get_result()}")
         
         # Sum aggregator
         sum_agg = SumAggregator('value')
@@ -262,7 +262,7 @@ class ObservabilityPlatformTestCase(unittest.TestCase):
         sum_agg.update({'value': 20})
         
         self.assertEqual(sum_agg.get_result(), 30)
-        print(f"   ✅ Sum: {sum_agg.get_result()}")
+        print(f"   [EMOJI] Sum: {sum_agg.get_result()}")
         
         # Avg aggregator
         avg_agg = AvgAggregator('value')
@@ -270,7 +270,7 @@ class ObservabilityPlatformTestCase(unittest.TestCase):
         avg_agg.update({'value': 20})
         
         self.assertEqual(avg_agg.get_result(), 15)
-        print(f"   ✅ Avg: {avg_agg.get_result()}")
+        print(f"   [EMOJI] Avg: {avg_agg.get_result()}")
 
 
 def run_tests():
@@ -296,17 +296,17 @@ def run_tests():
         print(f"Success rate: {success_rate:.1f}%")
     
     if result.failures:
-        print("\n❌ FAILURES:")
+        print("\n[EMOJI] FAILURES:")
         for test, traceback in result.failures:
             print(f"  - {test}")
     
     if result.errors:
-        print("\n💥 ERRORS:")
+        print("\n[EMOJI] ERRORS:")
         for test, traceback in result.errors:
             print(f"  - {test}")
     
     if not result.failures and not result.errors:
-        print("\n🎉 ALL TESTS PASSED! 🎉")
+        print("\n[EMOJI] ALL TESTS PASSED! [EMOJI]")
     
     print("=" * 60)
     
@@ -321,10 +321,10 @@ if __name__ == "__main__":
         success = run_tests()
         exit(0 if success else 1)
     except KeyboardInterrupt:
-        print("\n\n⚠️  Tests interrupted by user")
+        print("\n\n[EMOJI]️  Tests interrupted by user")
         exit(1)
     except Exception as e:
-        print(f"\n\n💥 Unexpected error: {e}")
+        print(f"\n\n[EMOJI] Unexpected error: {e}")
         import traceback
         traceback.print_exc()
         exit(1)

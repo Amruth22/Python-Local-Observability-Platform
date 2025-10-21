@@ -94,7 +94,7 @@ class IncidentResponder:
             return 'Incident logged'
         
         elif action == 'send_alert':
-            print(f"\n🚨 ALERT: Incident detected - {context}")
+            print(f"\n[EMOJI] ALERT: Incident detected - {context}")
             return 'Alert sent'
         
         elif action == 'restart_service':

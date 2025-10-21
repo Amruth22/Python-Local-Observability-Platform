@@ -31,7 +31,7 @@ def demo_metrics_collection():
     collector = MetricsCollector()
     
     # Collect system metrics
-    print("\n📊 Collecting system metrics:")
+    print("\n[EMOJI] Collecting system metrics:")
     system_metrics = collector.collect_system_metrics()
     
     print(f"   CPU Usage: {system_metrics['cpu_usage_percent']:.1f}%")
@@ -39,16 +39,16 @@ def demo_metrics_collection():
     print(f"   Disk Usage: {system_metrics['disk_usage_percent']:.1f}%")
     
     # Collect custom metrics
-    print("\n📈 Collecting custom metrics:")
+    print("\n[EMOJI] Collecting custom metrics:")
     collector.collect_metric('http_requests', 150)
     collector.collect_metric('response_time', 0.05)
     collector.collect_metric('error_count', 3)
     
-    print("   ✅ 3 custom metrics collected")
+    print("   [EMOJI] 3 custom metrics collected")
     
     # Get stats
     stats = collector.get_stats()
-    print(f"\n📊 Collector Stats:")
+    print(f"\n[EMOJI] Collector Stats:")
     print(f"   Tracked metrics: {stats['tracked_metrics']}")
     print(f"   Total data points: {stats['total_data_points']}")
 
@@ -61,7 +61,7 @@ def demo_alerting():
     collector = MetricsCollector()
     
     # Add alert rules
-    print("\n🚨 Adding alert rules:")
+    print("\n[EMOJI] Adding alert rules:")
     alert_manager.add_rule(
         name='high_cpu',
         metric='cpu_usage',
@@ -69,21 +69,21 @@ def demo_alerting():
         threshold=80,
         severity='warning'
     )
-    print("   ✅ Rule added: high_cpu (threshold: 80%)")
+    print("   [EMOJI] Rule added: high_cpu (threshold: 80%)")
     
     # Simulate high CPU
-    print("\n📊 Simulating high CPU usage:")
+    print("\n[EMOJI] Simulating high CPU usage:")
     collector.collect_metric('cpu_usage', 85)
     
     # Evaluate rules
     fired = alert_manager.evaluate_all_rules(collector)
     
     if fired:
-        print(f"   🚨 Alerts fired: {fired}")
+        print(f"   [EMOJI] Alerts fired: {fired}")
     
     # Get active alerts
     active = alert_manager.get_active_alerts()
-    print(f"\n📋 Active alerts: {len(active)}")
+    print(f"\n[EMOJI] Active alerts: {len(active)}")
 
 
 def demo_log_aggregation():
@@ -98,17 +98,17 @@ def demo_log_aggregation():
     log_agg = LogAggregator(db_path)
     
     # Log messages
-    print("\n📝 Logging messages:")
+    print("\n[EMOJI] Logging messages:")
     log_agg.log('INFO', 'Application started')
     log_agg.log('INFO', 'User logged in')
     log_agg.log('WARNING', 'High memory usage detected')
     log_agg.log('ERROR', 'Database connection failed')
     log_agg.log('CRITICAL', 'Service unavailable')
     
-    print("   ✅ 5 log entries recorded")
+    print("   [EMOJI] 5 log entries recorded")
     
     # Get logs by level
-    print("\n📋 Error logs:")
+    print("\n[EMOJI] Error logs:")
     errors = log_agg.get_logs(level='ERROR', hours=24)
     
     for log in errors:
@@ -116,7 +116,7 @@ def demo_log_aggregation():
     
     # Get log counts
     counts = log_agg.get_log_count_by_level()
-    print(f"\n📊 Log counts by level:")
+    print(f"\n[EMOJI] Log counts by level:")
     for level, count in counts.items():
         print(f"   {level}: {count}")
 
@@ -129,25 +129,25 @@ def demo_sla_monitoring():
     sla_monitor = SLAMonitor(db_path)
     
     # Define SLA
-    print("\n📋 Defining SLA:")
+    print("\n[EMOJI] Defining SLA:")
     sla_monitor.define_sla('api_uptime', target=99.9, metric_type='uptime')
-    print("   ✅ SLA defined: api_uptime (target: 99.9%)")
+    print("   [EMOJI] SLA defined: api_uptime (target: 99.9%)")
     
     # Record SLA metrics
-    print("\n📊 Recording SLA metrics:")
+    print("\n[EMOJI] Recording SLA metrics:")
     sla_monitor.record_sla_metric('api_uptime', 99.95)
     sla_monitor.record_sla_metric('api_uptime', 99.92)
     sla_monitor.record_sla_metric('api_uptime', 99.98)
     
-    print("   ✅ 3 measurements recorded")
+    print("   [EMOJI] 3 measurements recorded")
     
     # Get SLA status
     status = sla_monitor.get_sla_status('api_uptime')
     
-    print(f"\n📈 SLA Status:")
+    print(f"\n[EMOJI] SLA Status:")
     print(f"   Current: {status['current']:.2f}%")
     print(f"   Target: {status['target']:.2f}%")
-    print(f"   Compliant: {'✅ Yes' if status['compliant'] else '❌ No'}")
+    print(f"   Compliant: {'[EMOJI] Yes' if status['compliant'] else '[EMOJI] No'}")
 
 
 def demo_incident_response():
@@ -157,22 +157,22 @@ def demo_incident_response():
     responder = IncidentResponder()
     
     # Add playbook
-    print("\n📋 Adding incident response playbook:")
+    print("\n[EMOJI] Adding incident response playbook:")
     responder.add_playbook('high_error_rate', [
         'log_incident',
         'send_alert',
         'restart_service'
     ])
     
-    print("   ✅ Playbook added for high_error_rate")
+    print("   [EMOJI] Playbook added for high_error_rate")
     
     # Trigger response
-    print("\n🚨 Triggering incident response:")
+    print("\n[EMOJI] Triggering incident response:")
     actions = responder.respond('high_error_rate', context={'error_rate': 15.5})
     
-    print(f"\n✅ Actions executed: {len(actions)}")
+    print(f"\n[EMOJI] Actions executed: {len(actions)}")
     for action in actions:
-        status = "✅" if action['success'] else "❌"
+        status = "[EMOJI]" if action['success'] else "[EMOJI]"
         print(f"   {status} {action['action']}")
 
 
@@ -221,13 +221,13 @@ def demo_metrics_aggregation():
         {'value': 40, 'timestamp': time.time()}
     ]
     
-    print("\n📊 Aggregating metrics:")
+    print("\n[EMOJI] Aggregating metrics:")
     print(f"   Values: {[m['value'] for m in metrics]}")
     
     # Calculate aggregations
     results = aggregator.aggregate_all(metrics)
     
-    print(f"\n📈 Aggregation Results:")
+    print(f"\n[EMOJI] Aggregation Results:")
     print(f"   Count: {results['count']}")
     print(f"   Sum: {results['sum']}")
     print(f"   Avg: {results['avg']:.2f}")
@@ -272,7 +272,7 @@ def main():
             os.remove('demo.db')
         
     except Exception as e:
-        print(f"\n❌ Error: {e}")
+        print(f"\n[EMOJI] Error: {e}")
         import traceback
         traceback.print_exc()
 
